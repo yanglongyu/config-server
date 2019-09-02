@@ -1,0 +1,41 @@
+server:
+  port: 18887
+
+## 设置info 信息
+info:
+  application:
+    name: Config Server
+    description: 配置中心
+
+spring:
+  ## 安全中心配置
+  security:
+    user:
+      name: ${erueka.user:admin}
+      password: ${erueka.password:admin001}
+  ## cloud 相关配置
+  cloud:
+    config:
+      enabled: true
+      server:
+        native:
+          ## 申明本地配置文件的存放位置
+          search-locations: file:D:\\spring_repository
+  profiles:
+    active: native
+
+eureka:
+  instance:
+    ## 是否显示真实ip
+    prefer-ip-address: true
+    hostname: config-server
+
+  client:
+    ## 是否从注册中心获取数据，默认值为true
+    fetch-registry: true
+    ## 是否把自己注册到注册中心，默认值为true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:18161/eureka/
+
+
