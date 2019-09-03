@@ -1,7 +1,7 @@
 server:
   port: 18887
 
-## 设置info 信息
+## 设置info 信息 可以通过：http://ip:port/actuator/info 查看
 info:
   application:
     name: Config Server
@@ -37,5 +37,13 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:18161/eureka/
+
+## Spring Boot 2.0 中对Actuator变动很大，默认只提供/self，/health，/info这三个接口，如果想提供所有接口需要配置配置之后重新访问/actuator就会暴露出所有接口.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 
 
